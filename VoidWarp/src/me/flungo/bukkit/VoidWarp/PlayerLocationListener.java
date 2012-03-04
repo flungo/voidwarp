@@ -1,6 +1,5 @@
 package me.flungo.bukkit.VoidWarp;
 
-import org.bukkit.util.Vector;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -24,8 +23,6 @@ public class PlayerLocationListener implements Listener {
 		if (y < -50) {
 			Location spawn = new Location(w, w.getSpawnLocation().getX(), w.getHighestBlockYAt(w.getSpawnLocation())+2, w.getSpawnLocation().getZ());
 			p.teleport(spawn);
-			Vector velo = new Vector(0,-5,0);
-			p.setVelocity(velo);
 		}
 	}
 }

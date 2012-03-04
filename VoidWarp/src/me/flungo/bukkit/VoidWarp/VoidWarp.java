@@ -11,7 +11,9 @@ public class VoidWarp extends JavaPlugin {
 	
 	public final Logger logger = Logger.getLogger("MineCraft");
 	
-	public final PlayerLocationListener playerListener = new PlayerLocationListener(this);
+	public final PlayerLocationListener playerLocationListener = new PlayerLocationListener(this);
+	
+	public final PlayerDeathListener playerDeathListener = new PlayerDeathListener(this);
 	
 	@Override
 	public void onDisable() {
@@ -22,7 +24,8 @@ public class VoidWarp extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		PluginManager pm = getServer().getPluginManager();
-		pm.registerEvents(this.playerListener, this);
+		pm.registerEvents(this.playerLocationListener, this);
+		pm.registerEvents(this.playerDeathListener, this);
 		PluginDescriptionFile pdffile = this.getDescription();
 		this.logger.info(pdffile.getName() + " version " + pdffile.getVersion() + " is enabled.");
 	}
