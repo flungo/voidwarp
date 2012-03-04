@@ -1,0 +1,7 @@
+#Default config
+destination:
+    world: world
+    x: 0
+    #No y co-ordinate as you always appear at the highest point.
+    #Wouldn't be like you fell from the sky if you didn't.
+    z: 0
