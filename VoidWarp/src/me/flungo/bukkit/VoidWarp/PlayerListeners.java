@@ -22,7 +22,7 @@ public class PlayerListeners implements Listener {
 		if (y <= -50) {
 			Location warp = plugin.getWarpLocation(p);
 			p.teleport(warp);
-			p.setFallDistance(-plugin.getConfig().getInt("fall-height"));
+			p.setFallDistance(-plugin.getConfig().getInt("drop-height"));
 		}
 	}
 	
