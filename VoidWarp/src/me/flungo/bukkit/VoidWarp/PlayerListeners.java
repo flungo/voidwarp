@@ -1,6 +1,7 @@
 package me.flungo.bukkit.VoidWarp;
 
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,7 +29,11 @@ public class PlayerListeners implements Listener {
 	
 	@EventHandler
 	public void onVoidDamage(EntityDamageEvent event) {
-		if (event.getEntity() instanceof Player && event.getCause() == EntityDamageEvent.DamageCause.VOID)
+		Entity ent = event.getEntity();
+		Location loc = ent.getLocation();
+		int y = loc.getBlockY();
+		int y_min = -(plugin.getConfig().getInt("fall-distance") + 500);
+		if (y > y_min && ent instanceof Player && event.getCause() == EntityDamageEvent.DamageCause.VOID)
 			event.setCancelled(true);
 	}
 }
