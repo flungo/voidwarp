@@ -19,7 +19,7 @@ public class PlayerListeners implements Listener {
 		Player p = event.getPlayer();
 		Location to = event.getTo();
 		int y = to.getBlockY();
-		if (y <= -50) {
+		if (y <= -plugin.getConfig().getInt("fall-distance")) {
 			Location warp = plugin.getWarpLocation(p);
 			p.teleport(warp);
 			p.setFallDistance(-plugin.getConfig().getInt("drop-height"));

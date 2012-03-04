@@ -1,5 +1,6 @@
 #Default config file
 drop-height: 20
+fall-distance: 50
 destination:
     world: world
     x: 0
