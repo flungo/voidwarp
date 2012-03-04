@@ -30,7 +30,7 @@ public class PlayerListeners implements Listener {
 	
 	@EventHandler
 	public void onVoidDamage(EntityDamageEvent event) {
-		if (event.getCause() == EntityDamageEvent.DamageCause.VOID)
+		if (event.getEntity() instanceof Player && event.getCause() == EntityDamageEvent.DamageCause.VOID)
 			event.setCancelled(true);
 	}
 }
