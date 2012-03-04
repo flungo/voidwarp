@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,12 +31,20 @@ public class VoidWarp extends JavaPlugin {
 		this.logger.info(pdffile.getName() + " version " + pdffile.getVersion() + " is enabled.");
 	}
 	
-	public Location getWarpLocation() {
-		World w = getServer().getWorld(getConfig().getString("destination.world"));
-		int x = getConfig().getInt("destination.x");
-		int z = getConfig().getInt("destination.z");
-		int y = w.getHighestBlockYAt(x, z) + getConfig().getInt("fall-height");
-		Location loc = new Location(w, x, y, z);
+	public Location getWarpLocation(Player p) {
+		String wName = getConfig().getString("destination.world");
+		Location loc;
+		if (getServer().getWorlds().contains(wName)) {
+			World w = getServer().getWorld(wName);
+			int x = getConfig().getInt("destination.x");
+			int z = getConfig().getInt("destination.z");
+			int y = w.getHighestBlockYAt(x, z) + getConfig().getInt("fall-height");
+			loc = new Location(w, x, y, z);
+		} else {
+			World w = p.getWorld();
+			loc = w.getSpawnLocation();
+			loc.setY(w.getHighestBlockYAt(loc));
+		}
 		return loc;
 	}
 }
