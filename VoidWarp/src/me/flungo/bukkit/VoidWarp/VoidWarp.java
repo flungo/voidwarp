@@ -34,7 +34,8 @@ public class VoidWarp extends JavaPlugin {
 		World w = getServer().getWorld(getConfig().getString("destination.world"));
 		int x = getConfig().getInt("destination.x");
 		int z = getConfig().getInt("destination.z");
-		Location loc = new Location(w, x, w.getHighestBlockYAt(x, z), z);
+		int y = w.getHighestBlockYAt(x, z) + getConfig().getInt("fall-height");
+		Location loc = new Location(w, x, y, z);
 		return loc;
 	}
 }

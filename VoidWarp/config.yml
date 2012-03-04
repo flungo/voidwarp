@@ -1,4 +1,5 @@
-#Default config
+#Default config file
+fall-height: 20
 destination:
     world: world
     x: 0
