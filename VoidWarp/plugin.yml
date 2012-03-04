@@ -1,0 +1,5 @@
+name: VoidWarp
+main: me.flungo.bukkit.VoidWarp.VoidWarp
+version: 0.2.2
+description: >
+              Teleports you to the spawn of a specified world when you fall through the void.
