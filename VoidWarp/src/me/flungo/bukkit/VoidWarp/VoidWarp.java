@@ -96,7 +96,7 @@ public class VoidWarp extends JavaPlugin {
 				}
 			}
 			return true;
-		} else if (cmd.getName().equalsIgnoreCase("vwsetwarp")) {
+		} else if (cmd.getName().equalsIgnoreCase("vwset")) {
 			if (sender instanceof Player) {
 				Player p = ((Player) sender).getPlayer();
 				Location loc = p.getLocation();
