@@ -18,17 +18,20 @@ public class VoidWarp extends JavaPlugin {
 	public final PlayerListeners playerListener = new PlayerListeners(this);
 	
 	public void onDisable() {
-		PluginDescriptionFile pdffile = this.getDescription();
-		this.logger.info(pdffile.getName() + " is now disabled");
+		logMessage("Disabled.");
 	}
 	
 	public void onEnable() {
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(this.playerListener, this);
-		PluginDescriptionFile pdffile = this.getDescription();
 		getConfig().options().copyDefaults(true);
 		saveConfig();
-		this.logger.info(pdffile.getName() + " version " + pdffile.getVersion() + " is enabled.");
+		logMessage("Enabled.");
+	}
+	
+	public void logMessage(String msg) {
+		PluginDescriptionFile pdFile = this.getDescription();
+		logger.info("[" + pdFile.getName() + " v" + pdFile.getVersion() + "] " + msg);
 	}
 	
 	public Location getWarpLocation(Player p) {
@@ -43,7 +46,7 @@ public class VoidWarp extends JavaPlugin {
 		} else {
 			World w = p.getWorld();
 			loc = w.getSpawnLocation();
-			loc.setY(w.getHighestBlockYAt(loc));
+			loc.setY(w.getHighestBlockYAt(loc) + getConfig().getInt("drop-height"));
 		}
 		return loc;
 	}
