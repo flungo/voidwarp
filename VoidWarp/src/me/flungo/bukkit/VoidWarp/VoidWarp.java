@@ -36,19 +36,19 @@ public class VoidWarp extends JavaPlugin {
 		}
 	}
 	
-	public void enable() {
+	private void enable() {
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(this.playerListener, this);
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 	}
 	
-	public void disable() {
+	private void disable() {
 		HandlerList hl = new HandlerList();
 		hl.unregister(this);
 	}
 	
-	public void setEnabled(boolean enabled) {
+	public void EnablePlugin(boolean enabled) {
 		getConfig().set("enabled", enabled);
 		saveConfig();
 		if (enabled) enable();
