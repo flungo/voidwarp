@@ -34,8 +34,6 @@ public class VoidWarp extends JavaPlugin {
 	}
 	
 	public void enable() {
-		getConfig().set("enabled", true);
-		saveConfig();
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(this.playerListener, this);
 		getConfig().options().copyDefaults(true);
@@ -43,10 +41,15 @@ public class VoidWarp extends JavaPlugin {
 	}
 	
 	public void disable() {
-		getConfig().set("enabled", false);
-		saveConfig();
 		HandlerList hl = new HandlerList();
 		hl.unregister(this);
+	}
+	
+	public void setEnabled(boolean enabled) {
+		getConfig().set("enabled", enabled);
+		saveConfig();
+		if (enabled) enable();
+		else disable();
 	}
 	
 	public void logMessage(String msg) {
