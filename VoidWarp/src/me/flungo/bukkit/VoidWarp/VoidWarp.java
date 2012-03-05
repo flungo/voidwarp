@@ -32,7 +32,7 @@ public class VoidWarp extends JavaPlugin {
 			enable();
 			logMessage("Enabled.");
 		} else {
-			logMessage("Disabled by config, type /vw enable to enable");
+			logMessage("Disabled by config, type /vwenable to enable");
 		}
 	}
 	
@@ -48,10 +48,10 @@ public class VoidWarp extends JavaPlugin {
 		hl.unregister(this);
 	}
 	
-	public void EnablePlugin(boolean enabled) {
-		getConfig().set("enabled", enabled);
+	public void EnablePlugin(boolean setTo) {
+		getConfig().set("enable", setTo);
 		saveConfig();
-		if (enabled) enable();
+		if (getConfig().getBoolean("enable")) enable();
 		else disable();
 	}
 	
@@ -61,6 +61,41 @@ public class VoidWarp extends JavaPlugin {
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		if (cmd.getName().equalsIgnoreCase("vwenable")) {
+			if (getConfig().getBoolean("enable")) {
+				if (sender instanceof Player) {
+					Player p = ((Player) sender).getPlayer();
+					p.sendMessage("VoidWarp already enabled.");
+				} else {
+					logMessage(ChatColor.RED + "Already enabled.");
+				}
+			} else {
+				EnablePlugin(true);
+				logMessage(ChatColor.GREEN + "Enabled via command.");
+				if (sender instanceof Player) {
+					Player p = ((Player) sender).getPlayer();
+					p.sendMessage("VoidWarp has been enabled.");
+				}
+			}
+			return true;
+		} else if (cmd.getName().equalsIgnoreCase("vwdisable")) {
+			if (getConfig().getBoolean("enable")) {
+				EnablePlugin(false);
+				logMessage(ChatColor.DARK_RED + "Disabled via command.");
+				if (sender instanceof Player) {
+					Player p = ((Player) sender).getPlayer();
+					p.sendMessage("VoidWarp has been disabled.");
+				}
+			} else {
+				if (sender instanceof Player) {
+					Player p = ((Player) sender).getPlayer();
+					p.sendMessage("VoidWarp already disabled.");
+				} else {
+					logMessage(ChatColor.RED + "Already disabled.");
+				}
+			}
+			return true;
+		}
 		return false;
 	}
 	
