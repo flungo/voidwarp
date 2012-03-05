@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -20,6 +22,7 @@ public class VoidWarp extends JavaPlugin {
 	public final PlayerListeners playerListener = new PlayerListeners(this);
 	
 	public void onDisable() {
+		disable();
 		saveConfig();
 		logMessage("Disabled.");
 	}
@@ -55,6 +58,10 @@ public class VoidWarp extends JavaPlugin {
 	public void logMessage(String msg) {
 		PluginDescriptionFile pdFile = this.getDescription();
 		logger.info("[" + pdFile.getName() + " v" + pdFile.getVersion() + "] " + msg);
+	}
+	
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		return false;
 	}
 	
 	public void setWarpLocation(Location loc) {
