@@ -38,6 +38,13 @@ public class VoidWarp extends JavaPlugin {
 		logger.info("[" + pdFile.getName() + " v" + pdFile.getVersion() + "] " + msg);
 	}
 	
+	public void setWarpLocation(Location loc) {
+		getConfig().set("destination.world", loc.getWorld().getName());
+		getConfig().set("destination.x", loc.getBlockX());
+		getConfig().set("destination.z", loc.getBlockZ());
+		saveConfig();
+	}
+	
 	public Location getWarpLocation(Player p) {
 		String wName = getConfig().getString("destination.world");
 		Location loc;
