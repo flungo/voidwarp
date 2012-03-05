@@ -1,6 +1,8 @@
 #Default config file
-drop-height: 20
+
+enable: true
 fall-distance: 50
+drop-height: 20
 destination:
     world: world
     x: 0

@@ -28,6 +28,9 @@ public class VoidWarp extends JavaPlugin {
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 		logMessage("Enabled.");
+		if (getConfig().getBoolean("enable") == false) {
+			logMessage("Disabled by config, type /vw enable to enable");
+		}
 	}
 	
 	public void logMessage(String msg) {
