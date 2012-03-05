@@ -12,4 +12,4 @@ commands:
         usage: /vwdisable
     vwset:
         description: Sets warp point to current location..
-        usage: /vwsetwarp
+        usage: /vwset
