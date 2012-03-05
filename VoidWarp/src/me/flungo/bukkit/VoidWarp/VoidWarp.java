@@ -45,6 +45,16 @@ public class VoidWarp extends JavaPlugin {
 		saveConfig();
 	}
 	
+	public void setDropHeight (int height) {
+		getConfig().set("drop-height", height);
+		saveConfig();
+	}
+	
+	public void setFallDistance (int distance) {
+		getConfig().set("fall-distance", distance);
+		saveConfig();
+	}
+	
 	public Location getWarpLocation(Player p) {
 		String wName = getConfig().getString("destination.world");
 		Location loc;
