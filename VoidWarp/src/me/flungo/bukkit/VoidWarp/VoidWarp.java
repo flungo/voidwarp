@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,18 +20,33 @@ public class VoidWarp extends JavaPlugin {
 	public final PlayerListeners playerListener = new PlayerListeners(this);
 	
 	public void onDisable() {
+		saveConfig();
 		logMessage("Disabled.");
 	}
 	
 	public void onEnable() {
+		if (getConfig().getBoolean("enable")) {
+			enable();
+			logMessage("Enabled.");
+		} else {
+			logMessage("Disabled by config, type /vw enable to enable");
+		}
+	}
+	
+	public void enable() {
+		getConfig().set("enabled", true);
+		saveConfig();
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(this.playerListener, this);
 		getConfig().options().copyDefaults(true);
 		saveConfig();
-		logMessage("Enabled.");
-		if (getConfig().getBoolean("enable") == false) {
-			logMessage("Disabled by config, type /vw enable to enable");
-		}
+	}
+	
+	public void disable() {
+		getConfig().set("enabled", false);
+		saveConfig();
+		HandlerList hl = new HandlerList();
+		hl.unregister(this);
 	}
 	
 	public void logMessage(String msg) {
@@ -45,7 +61,7 @@ public class VoidWarp extends JavaPlugin {
 		saveConfig();
 	}
 	
-	public void setDropHeight (int height) {
+	public void setDropHeight(int height) {
 		getConfig().set("drop-height", height);
 		saveConfig();
 	}
