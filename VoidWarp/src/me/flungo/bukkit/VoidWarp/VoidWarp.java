@@ -2,6 +2,7 @@ package me.flungo.bukkit.VoidWarp;
 
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -95,6 +96,20 @@ public class VoidWarp extends JavaPlugin {
 				}
 			}
 			return true;
+		} else if (cmd.getName().equalsIgnoreCase("vwsetwarp")) {
+			if (sender instanceof Player) {
+				Player p = ((Player) sender).getPlayer();
+				Location loc = p.getLocation();
+				setWarpLocation(loc);
+				p.sendMessage("Warp point for Void Warp set!");
+				String w = loc.getWorld().getName();
+				int x = loc.getBlockX();
+				int z = loc.getBlockZ();
+				logMessage("Warp has been set in the world '" + w + "at the co-ordinates: " + x + ", " + z);
+			} else {
+				logMessage(ChatColor.RED + "/vwsetwarp cannot be run from the console");
+			}
+			return true;
 		}
 		return false;
 	}
@@ -119,7 +134,7 @@ public class VoidWarp extends JavaPlugin {
 	public Location getWarpLocation(Player p) {
 		String wName = getConfig().getString("destination.world");
 		Location loc;
-		if (getServer().getWorlds().contains(wName)) {
+		if (Bukkit.getWorld(wName) != null) {
 			World w = getServer().getWorld(wName);
 			int x = getConfig().getInt("destination.x");
 			int z = getConfig().getInt("destination.z");
@@ -129,7 +144,7 @@ public class VoidWarp extends JavaPlugin {
 			World w = p.getWorld();
 			loc = w.getSpawnLocation();
 			loc.setY(w.getHighestBlockYAt(loc) + getConfig().getInt("drop-height"));
-			logMessage(ChatColor.RED + "Failed to find a world named '" + wName + "'. Teleported player to " + w.getName() + "spawn. Please check config.yml.");
+			logMessage(ChatColor.RED + "Failed to find a world named '" + wName + "'. Teleported player to " + w.getName() + " spawn. Please check config.yml.");
 		}
 		return loc;
 	}

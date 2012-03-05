@@ -10,3 +10,6 @@ commands:
     vwdisable:
         description: Disables the plugin.
         usage: /vwdisable
+    vwsetwarp:
+        description: Sets warp point to current location..
+        usage: /vwsetwarp
