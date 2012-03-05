@@ -2,6 +2,7 @@ package me.flungo.bukkit.VoidWarp;
 
 import java.util.logging.Logger;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -47,6 +48,7 @@ public class VoidWarp extends JavaPlugin {
 			World w = p.getWorld();
 			loc = w.getSpawnLocation();
 			loc.setY(w.getHighestBlockYAt(loc) + getConfig().getInt("drop-height"));
+			logMessage(ChatColor.RED + "Failed to find a world named '" + wName + "'. Teleported player to " + w.getName() + "spawn. Please check config.yml.");
 		}
 		return loc;
 	}
