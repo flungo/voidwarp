@@ -62,63 +62,70 @@ public class VoidWarp extends JavaPlugin {
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (cmd.getName().equalsIgnoreCase("vwenable")) {
-			if (getConfig().getBoolean("enable")) {
-				if (sender instanceof Player) {
-					Player p = ((Player) sender).getPlayer();
-					p.sendMessage("VoidWarp already enabled.");
+		if ((sender instanceof Player && isAdmin(((Player) sender).getPlayer())) || !(sender instanceof Player)) {
+			if (cmd.getName().equalsIgnoreCase("vwenable")) {
+				if (getConfig().getBoolean("enable")) {
+					if (sender instanceof Player) {
+						Player p = ((Player) sender).getPlayer();
+						p.sendMessage("VoidWarp already enabled.");
+					} else {
+						logMessage(ChatColor.RED + "Already enabled.");
+					}
 				} else {
-					logMessage(ChatColor.RED + "Already enabled.");
+					EnablePlugin(true);
+					logMessage(ChatColor.GREEN + "Enabled via command.");
+					if (sender instanceof Player) {
+						Player p = ((Player) sender).getPlayer();
+						p.sendMessage("VoidWarp has been enabled.");
+					}
 				}
-			} else {
-				EnablePlugin(true);
-				logMessage(ChatColor.GREEN + "Enabled via command.");
-				if (sender instanceof Player) {
-					Player p = ((Player) sender).getPlayer();
-					p.sendMessage("VoidWarp has been enabled.");
-				}
-			}
-			return true;
-		} else if (cmd.getName().equalsIgnoreCase("vwdisable")) {
-			if (getConfig().getBoolean("enable")) {
-				EnablePlugin(false);
-				logMessage(ChatColor.DARK_RED + "Disabled via command.");
-				if (sender instanceof Player) {
-					Player p = ((Player) sender).getPlayer();
-					p.sendMessage("VoidWarp has been disabled.");
-				}
-			} else {
-				if (sender instanceof Player) {
-					Player p = ((Player) sender).getPlayer();
-					p.sendMessage("VoidWarp already disabled.");
+				return true;
+			} else if (cmd.getName().equalsIgnoreCase("vwdisable")) {
+				if (getConfig().getBoolean("enable")) {
+					EnablePlugin(false);
+					logMessage(ChatColor.DARK_RED + "Disabled via command.");
+					if (sender instanceof Player) {
+						Player p = ((Player) sender).getPlayer();
+						p.sendMessage("VoidWarp has been disabled.");
+					}
 				} else {
-					logMessage(ChatColor.RED + "Already disabled.");
+					if (sender instanceof Player) {
+						Player p = ((Player) sender).getPlayer();
+						p.sendMessage("VoidWarp already disabled.");
+					} else {
+						logMessage(ChatColor.RED + "Already disabled.");
+					}
 				}
+				return true;
+			} else if (cmd.getName().equalsIgnoreCase("vwset")) {
+				if (sender instanceof Player) {
+					Player p = ((Player) sender).getPlayer(); 
+					Location loc = p.getLocation();
+					setWarpLocation(loc);
+					p.sendMessage("Warp point for VoidWarp set!");
+					String w = loc.getWorld().getName();
+					int x = loc.getBlockX();
+					int z = loc.getBlockZ();
+					logMessage("Warp has been set in the world '" + w + "at the co-ordinates: " + x + ", " + z);
+				} else {
+					logMessage(ChatColor.RED + "/vwsetwarp cannot be run from the console");
+				}
+				return true;
 			}
-			return true;
-		} else if (cmd.getName().equalsIgnoreCase("vwset")) {
-			if (sender instanceof Player) {
-				Player p = ((Player) sender).getPlayer();
-				Location loc = p.getLocation();
-				setWarpLocation(loc);
-				p.sendMessage("Warp point for Void Warp set!");
-				String w = loc.getWorld().getName();
-				int x = loc.getBlockX();
-				int z = loc.getBlockZ();
-				logMessage("Warp has been set in the world '" + w + "at the co-ordinates: " + x + ", " + z);
-			} else {
-				logMessage(ChatColor.RED + "/vwsetwarp cannot be run from the console");
-			}
-			return true;
 		}
 		return false;
 	}
 	
-	public boolean isAdmin() {
+	public boolean isAdmin(Player p) {
+		if (p.isOp() && getConfig().getBoolean("permissions.op")) return true;
+		if (p.hasPermission("voidwarp.admin") && getConfig().getBoolean("permissions.nodes")) return true;
 		return false;
 	}
 	
-	public boolean isUser() {
+	public boolean isUser(Player p) {
+		if (!getConfig().getBoolean("enable")) return false;
+		if (p.hasPermission("voidwarp.admin") && getConfig().getBoolean("permissions.nodes")) return true;
+		if (p.hasPermission("voidwarp.user") && getConfig().getBoolean("permissions.nodes")) return true;
 		return false;
 	}
 	

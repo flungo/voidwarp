@@ -6,12 +6,12 @@ drop-height: 20
 #Distance player will fall through the void before being teleported
 fall-distance: 50
 
-Permissions:
-	#Allow ops to execute all commands
-	op: true
-	
-	#Use permission nodes (inactive)
-	permissions: true
+permissions:
+    #Allow ops to execute all commands
+    op: true
+    
+    #Use permission nodes (inactive)
+    nodes: true
 
 #Warp destination
 destination:
