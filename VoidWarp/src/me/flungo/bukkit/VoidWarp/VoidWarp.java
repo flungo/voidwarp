@@ -114,6 +114,14 @@ public class VoidWarp extends JavaPlugin {
 		return false;
 	}
 	
+	public boolean isAdmin() {
+		return false;
+	}
+	
+	public boolean isUser() {
+		return false;
+	}
+	
 	public void setWarpLocation(Location loc) {
 		getConfig().set("destination.world", loc.getWorld().getName());
 		getConfig().set("destination.x", loc.getBlockX());

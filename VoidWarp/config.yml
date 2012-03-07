@@ -1,11 +1,28 @@
 #Default config file
 
-enable: true
-fall-distance: 50
+#Height above ground to drop player back into the world at when they have been teleported
 drop-height: 20
+
+#Distance player will fall through the void before being teleported
+fall-distance: 50
+
+Permissions:
+	#Allow ops to execute all commands
+	op: true
+	
+	#Use permission nodes (inactive)
+	permissions: true
+
+#Warp destination
 destination:
+    #World to teleport player to
     world: world
+    
+    #x co-ordinate in specified world
     x: 0
+    
     #No y co-ordinate as you always appear at the highest point.
     #Wouldn't be like you fell from the sky if you didn't.
+    
+    #x co-ordinate in specified world
     z: 0

@@ -1,6 +1,6 @@
 name: VoidWarp
 main: me.flungo.bukkit.VoidWarp.VoidWarp
-version: 0.4.0
+version: 0.4.1
 description: >
               Teleports you to the spawn of a specified world when you fall through the void.
 commands:
@@ -11,5 +11,5 @@ commands:
         description: Disables the plugin.
         usage: /vwdisable
     vwset:
-        description: Sets warp point to current location..
+        description: Sets warp point to current location.
         usage: /vwset
