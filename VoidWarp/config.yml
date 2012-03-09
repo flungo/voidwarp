@@ -1,20 +1,36 @@
 #Default config file
 
-#Height above ground to drop player back into the world at when they have been teleported
+#Height above ground to drop player back into the world at
+#when they have been teleported
 drop-height: 20
 
 #Distance player will fall through the void before being teleported
 fall-distance: 50
 
+#What permissions systems to use
 permissions:
+
     #Allow ops to execute all commands
     op: true
     
     #Use permission nodes (inactive)
-    nodes: true
+    nodes:
+        
+        #Enable/diable the admin permission node
+        admin: true
+        
+        #User's require node to be teleported
+        user: true
+        
+   #Do use Permissions Bukkit?
+   bukkit: true;
+   
+   #Do you use vault? (Not needed if you use permissions bukkit)
+   vault: false;
 
 #Warp destination
 destination:
+
     #World to teleport player to
     world: world
     

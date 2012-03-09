@@ -118,14 +118,14 @@ public class VoidWarp extends JavaPlugin {
 	
 	public boolean isAdmin(Player p) {
 		if (p.isOp() && getConfig().getBoolean("permissions.op")) return true;
-		if (p.hasPermission("voidwarp.admin") && getConfig().getBoolean("permissions.nodes")) return true;
+		if (p.hasPermission("voidwarp.admin") && getConfig().getBoolean("permissions.nodes.admin")) return true;
 		return false;
 	}
 	
 	public boolean isUser(Player p) {
 		if (!getConfig().getBoolean("enable")) return false;
-		if (p.hasPermission("voidwarp.admin") && getConfig().getBoolean("permissions.nodes")) return true;
-		if (p.hasPermission("voidwarp.user") && getConfig().getBoolean("permissions.nodes")) return true;
+		if (p.hasPermission("voidwarp.admin") && getConfig().getBoolean("permissions.nodes.admin")) return true;
+		if (p.hasPermission("voidwarp.user") && getConfig().getBoolean("permissions.nodes.user")) return true;
 		return false;
 	}
 	
