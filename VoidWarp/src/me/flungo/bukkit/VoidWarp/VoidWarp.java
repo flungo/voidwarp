@@ -18,6 +18,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class VoidWarp extends JavaPlugin {
 	
 	public static VoidWarp plugin;
+    
+    public PluginManager pm;
+    
+    public PluginDescriptionFile pdf;
 	
 	public final Logger logger = Logger.getLogger("MineCraft");
 	
@@ -32,6 +36,8 @@ public class VoidWarp extends JavaPlugin {
 	}
 	
 	public void onEnable() {
+		pm = getServer().getPluginManager();
+    	pdf = getDescription();
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 		if (getConfig().getBoolean("enable")) {
@@ -43,7 +49,6 @@ public class VoidWarp extends JavaPlugin {
 	}
 	
 	private void enable() {
-		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(this.playerListener, this);
 		permissions.setupPermissions();
 	}
@@ -65,8 +70,7 @@ public class VoidWarp extends JavaPlugin {
 	}
 	
 	public void logMessage(String msg, Level level) {
-		PluginDescriptionFile pdFile = this.getDescription();
-		logger.log(level, "[" + pdFile.getName() + "] " + msg);
+		logger.log(level, "[" + pdf.getName() + "] " + msg);
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
