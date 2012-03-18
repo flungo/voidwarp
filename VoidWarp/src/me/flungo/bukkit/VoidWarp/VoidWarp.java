@@ -23,7 +23,7 @@ public class VoidWarp extends JavaPlugin {
 	
 	public final PlayerListeners playerListener = new PlayerListeners(this);
 	
-	public final Permissions Permissions = new Permissions(this);
+	public final Permissions permissions = new Permissions(this);
 	
 	public void onDisable() {
 		disable();
@@ -45,6 +45,7 @@ public class VoidWarp extends JavaPlugin {
 		pm.registerEvents(this.playerListener, this);
 		getConfig().options().copyDefaults(true);
 		saveConfig();
+		permissions.setupPermissions();
 	}
 	
 	private void disable() {
@@ -69,7 +70,7 @@ public class VoidWarp extends JavaPlugin {
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if ((sender instanceof Player && Permissions.isAdmin(((Player) sender).getPlayer())) || !(sender instanceof Player)) {
+		if ((sender instanceof Player && permissions.isAdmin(((Player) sender).getPlayer())) || !(sender instanceof Player)) {
 			if (cmd.getName().equalsIgnoreCase("vwenable")) {
 				if (getConfig().getBoolean("enable")) {
 					if (sender instanceof Player) {
