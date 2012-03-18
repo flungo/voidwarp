@@ -14,11 +14,23 @@ public class Permissions {
 		plugin = instance;
 	}
 	
+	private static boolean op;
+	
 	private static boolean bukkit;
 	
 	private static boolean vault;
 	
 	private static Permission vaultPermission = null;
+	
+	private void setupOPPermissions() {
+		if (plugin.getConfig().getBoolean("permissions.op")) {
+			plugin.logMessage("Attempting to configure OP permissions");
+			op = true;
+		} else {
+			plugin.logMessage("OP permissions disabled by config");
+			op = false;
+		}
+	}
 	
 	private void setupBukkitPermissions() {
 		if (plugin.getConfig().getBoolean("permissions.bukkit")) {
@@ -53,6 +65,12 @@ public class Permissions {
     }
 	
 	public void setupPermissions() {
+		setupOPPermissions();
+		if (op) {
+			plugin.logMessage("OP permissions set up");
+		} else {
+			plugin.logMessage("OP permissions not set up", Level.WARNING);
+		}
 		setupBukkitPermissions();
 		if (bukkit) {
 			plugin.logMessage("Bukkit Super Permissions set up");
@@ -65,6 +83,12 @@ public class Permissions {
 		} else {
 			plugin.logMessage("Vault permissions not set up", Level.WARNING);
 		}
+		if (!vault && !bukkit) {
+			plugin.logMessage("No permission systems have been set up. All users will be teleported in void.", Level.WARNING);
+			if (!op) {
+				plugin.logMessage("Additionally, OP permissions disabled. No ingame commands.", Level.WARNING);
+			}
+		}
 	}
 	
 	private boolean hasNode(Player p, String node) {
@@ -74,7 +98,7 @@ public class Permissions {
 	}
 	
 	public boolean isAdmin(Player p) {
-		if (p.isOp() && plugin.getConfig().getBoolean("permissions.op")) return true;
+		if (p.isOp() && op) return true;
 		if (plugin.getConfig().getBoolean("permissions.nodes.admin")) {
 			String node = "voidwarp.admin";
 			if (hasNode(p, node)) return true;
