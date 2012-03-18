@@ -13,8 +13,8 @@
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
         <file path="/VoidWarp/.classpath"/>
         <javaElement handleIdentifier="=VoidWarp/src"/>
-        <file path="/VoidWarp/config.yml"/>
         <file path="/VoidWarp/.project"/>
+        <file path="/VoidWarp/config.yml"/>
         <file path="/VoidWarp/plugin.yml"/>
     </selectedElements>
 </jardesc>
