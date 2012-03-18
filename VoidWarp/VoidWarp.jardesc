@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
 <jardesc>
-    <jar path="C:/Development/Bukkit/plugins/VoidWarp.jar"/>
+    <jar path="C:/Development/Bukkit/1.2.3-R0.2/plugins/VoidWarp.jar"/>
     <options buildIfNeeded="true" compress="true" descriptionLocation="/VoidWarp/VoidWarp.jardesc" exportErrors="false" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>

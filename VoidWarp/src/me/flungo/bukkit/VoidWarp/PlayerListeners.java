@@ -17,8 +17,8 @@ public class PlayerListeners implements Listener {
 
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event) {
-		if (plugin.getConfig().getBoolean("enable")) {
-			Player p = event.getPlayer();
+		Player p = event.getPlayer();
+		if (plugin.getConfig().getBoolean("enable") && plugin.permissions.isUser(p)) {
 			Location to = event.getTo();
 			int y = to.getBlockY();
 			if (y <= -plugin.getConfig().getInt("fall-distance")) {
@@ -31,13 +31,16 @@ public class PlayerListeners implements Listener {
 	
 	@EventHandler
 	public void onVoidDamage(EntityDamageEvent event) {
-		if (plugin.getConfig().getBoolean("enable")) {
-			Entity ent = event.getEntity();
-			Location loc = ent.getLocation();
-			int y = loc.getBlockY();
-			int y_min = -(plugin.getConfig().getInt("fall-distance") + 500);
-			if (y > y_min && ent instanceof Player && event.getCause() == EntityDamageEvent.DamageCause.VOID)
-				event.setCancelled(true);
+		Entity ent = event.getEntity();
+		if  (ent instanceof Player) {
+			Player p = ((Player) event).getPlayer();
+			if (plugin.getConfig().getBoolean("enable") && plugin.permissions.isUser(p)) {
+				Location loc = ent.getLocation();
+				int y = loc.getBlockY();
+				int y_min = -(plugin.getConfig().getInt("fall-distance") + 500);
+				if (y > y_min && event.getCause() == EntityDamageEvent.DamageCause.VOID)
+					event.setCancelled(true);
+			}
 		}
 	}
 }
