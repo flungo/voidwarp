@@ -89,6 +89,7 @@ public class Permissions {
 			if (hasNode(p, node)) return true;
 		}
 		if (isAdmin(p)) return true;
+		if (!bukkit && !vault) return true;
 		return false;
 	}
 }
