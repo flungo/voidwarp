@@ -66,7 +66,7 @@ public class VoidWarp extends JavaPlugin {
 	
 	public void logMessage(String msg, Level level) {
 		PluginDescriptionFile pdFile = this.getDescription();
-		logger.log(level, "[" + pdFile.getName() + " v" + pdFile.getVersion() + "] " + msg);
+		logger.log(level, "[" + pdFile.getName() + "] " + msg);
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
