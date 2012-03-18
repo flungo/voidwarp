@@ -32,6 +32,8 @@ public class VoidWarp extends JavaPlugin {
 	}
 	
 	public void onEnable() {
+		getConfig().options().copyDefaults(true);
+		saveConfig();
 		if (getConfig().getBoolean("enable")) {
 			enable();
 			logMessage("Enabled.");
@@ -43,8 +45,6 @@ public class VoidWarp extends JavaPlugin {
 	private void enable() {
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(this.playerListener, this);
-		getConfig().options().copyDefaults(true);
-		saveConfig();
 		permissions.setupPermissions();
 	}
 	
