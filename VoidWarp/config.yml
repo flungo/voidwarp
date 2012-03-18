@@ -52,3 +52,6 @@ destination:
     
     #x co-ordinate in specified world
     z: 0
+   
+#Enable the plugin 
+enable: true

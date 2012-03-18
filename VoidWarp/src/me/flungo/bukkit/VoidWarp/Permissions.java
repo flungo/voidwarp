@@ -22,8 +22,10 @@ public class Permissions {
 	
 	private void setupBukkitPermissions() {
 		if (plugin.getConfig().getBoolean("permissions.bukkit")) {
+			plugin.logMessage("Attempting to configure Bukkit Super Permissions");
 			bukkit = true;
 		} else {
+			plugin.logMessage("Bukkit Super Permissions disabled by config");
 			bukkit = false;
 		}
 	}
@@ -55,13 +57,13 @@ public class Permissions {
 		if (bukkit) {
 			plugin.logMessage("Bukkit Super Permissions set up");
 		} else {
-			plugin.logMessage("Vault permissions not set up");
+			plugin.logMessage("Bukkit Super Permissions not set up", Level.WARNING);
 		}
 		setupVaultPermissions();
 		if (vault) {
 			plugin.logMessage("Vault permissions set up");
 		} else {
-			plugin.logMessage("Vault permissions not set up");
+			plugin.logMessage("Vault permissions not set up", Level.WARNING);
 		}
 	}
 	
