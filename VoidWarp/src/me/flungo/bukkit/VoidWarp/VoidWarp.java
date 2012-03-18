@@ -1,5 +1,6 @@
 package me.flungo.bukkit.VoidWarp;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -21,6 +22,8 @@ public class VoidWarp extends JavaPlugin {
 	public final Logger logger = Logger.getLogger("MineCraft");
 	
 	public final PlayerListeners playerListener = new PlayerListeners(this);
+	
+	public final Permissions Permissions = new Permissions(this);
 	
 	public void onDisable() {
 		disable();
@@ -55,14 +58,18 @@ public class VoidWarp extends JavaPlugin {
 		if (getConfig().getBoolean("enable")) enable();
 		else disable();
 	}
-	
+
 	public void logMessage(String msg) {
+		logMessage(msg, Level.INFO);
+	}
+	
+	public void logMessage(String msg, Level level) {
 		PluginDescriptionFile pdFile = this.getDescription();
-		logger.info("[" + pdFile.getName() + " v" + pdFile.getVersion() + "] " + msg);
+		logger.info(level + "[" + pdFile.getName() + " v" + pdFile.getVersion() + "] " + msg);
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if ((sender instanceof Player && isAdmin(((Player) sender).getPlayer())) || !(sender instanceof Player)) {
+		if ((sender instanceof Player && Permissions.isAdmin(((Player) sender).getPlayer())) || !(sender instanceof Player)) {
 			if (cmd.getName().equalsIgnoreCase("vwenable")) {
 				if (getConfig().getBoolean("enable")) {
 					if (sender instanceof Player) {
@@ -113,19 +120,6 @@ public class VoidWarp extends JavaPlugin {
 				return true;
 			}
 		}
-		return false;
-	}
-	
-	public boolean isAdmin(Player p) {
-		if (p.isOp() && getConfig().getBoolean("permissions.op")) return true;
-		if (p.hasPermission("voidwarp.admin") && getConfig().getBoolean("permissions.nodes.admin")) return true;
-		return false;
-	}
-	
-	public boolean isUser(Player p) {
-		if (!getConfig().getBoolean("enable")) return false;
-		if (p.hasPermission("voidwarp.admin") && getConfig().getBoolean("permissions.nodes.admin")) return true;
-		if (p.hasPermission("voidwarp.user") && getConfig().getBoolean("permissions.nodes.user")) return true;
 		return false;
 	}
 	

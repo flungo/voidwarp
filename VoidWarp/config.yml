@@ -22,11 +22,21 @@ permissions:
         #User's require node to be teleported
         user: true
         
-   #Do use Permissions Bukkit?
-   bukkit: true;
-   
-   #Do you use vault? (Not needed if you use permissions bukkit)
-   vault: false;
+        #Enable the node that allows players to be exempt from teleport costs
+        free: true
+        
+    #Do use a Super Permissions compatible manager?
+    bukkit: true
+      
+    #Do you use vault? (Not needed if you use a SuperPerms compatible manager)
+    vault: false
+    
+economy:
+    #Enable to enable/diable warp costs
+    enable: false
+    
+    #Enable to use vault to manage ecomonomy
+    vault: true
 
 #Warp destination
 destination:

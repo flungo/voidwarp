@@ -1,6 +1,7 @@
 name: VoidWarp
 main: me.flungo.bukkit.VoidWarp.VoidWarp
 version: 0.4.2
+softdepend: [Vault]
 description: >
               Teleports you to the spawn of a specified world when you fall through the void.
 commands:
@@ -16,7 +17,5 @@ commands:
 permissions:
     voidwarp.admin:
         description: Allows use of all commands.
-        children:
-            voidwarp.user: true
     voidwarp.user:
-    	description: Allows user to fall through voids and be warped without dying.
+        description: Allows user to fall through voids and be warped without dying.
