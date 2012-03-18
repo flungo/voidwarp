@@ -34,7 +34,7 @@ public class PlayerListeners implements Listener {
 	public void onVoidDamage(EntityDamageEvent event) {
 		Entity ent = event.getEntity();
 		if  (ent instanceof Player) {
-			Player p = ((OfflinePlayer) event).getPlayer();
+			Player p = ((Player) ent).getPlayer();
 			if (plugin.getConfig().getBoolean("enable") && plugin.permissions.isUser(p)) {
 				Location loc = ent.getLocation();
 				int y = loc.getBlockY();
