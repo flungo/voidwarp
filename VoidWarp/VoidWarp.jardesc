@@ -14,6 +14,7 @@
         <file path="/VoidWarp/.classpath"/>
         <javaElement handleIdentifier="=VoidWarp/src"/>
         <file path="/VoidWarp/config.yml"/>
+        <javaElement handleIdentifier="=BukkitTools/src"/>
         <file path="/VoidWarp/.project"/>
         <file path="/VoidWarp/plugin.yml"/>
     </selectedElements>

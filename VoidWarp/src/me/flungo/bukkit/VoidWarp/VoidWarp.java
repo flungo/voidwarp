@@ -1,7 +1,7 @@
 package me.flungo.bukkit.VoidWarp;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import me.flungo.bukkit.tools.Log;
+import me.flungo.bukkit.tools.Permissions;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -23,16 +23,16 @@ public class VoidWarp extends JavaPlugin {
     
     public PluginDescriptionFile pdf;
 	
-	public final Logger logger = Logger.getLogger("MineCraft");
-	
 	public final PlayerListeners playerListener = new PlayerListeners(this);
 	
-	public final Permissions permissions = new Permissions(this);
+	public final Log logger = new Log(this);
+	
+	public final Permissions permissions = new Permissions(this, logger);
 	
 	public void onDisable() {
 		disable();
 		saveConfig();
-		logMessage("Disabled.");
+		logger.logMessage("Disabled.");
 	}
 	
 	public void onEnable() {
@@ -42,9 +42,9 @@ public class VoidWarp extends JavaPlugin {
 		saveConfig();
 		if (getConfig().getBoolean("enable")) {
 			enable();
-			logMessage("Enabled.");
+			logger.logMessage("Enabled.");
 		} else {
-			logMessage("Disabled by config, type /vwenable to enable");
+			logger.logMessage("Disabled by config, type /vwenable to enable");
 		}
 	}
 	
@@ -64,14 +64,6 @@ public class VoidWarp extends JavaPlugin {
 		if (getConfig().getBoolean("enable")) enable();
 		else disable();
 	}
-
-	public void logMessage(String msg) {
-		logMessage(msg, Level.INFO);
-	}
-	
-	public void logMessage(String msg, Level level) {
-		logger.log(level, "[" + pdf.getName() + "] " + msg);
-	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if ((sender instanceof Player && permissions.isAdmin(((Player) sender).getPlayer())) || !(sender instanceof Player)) {
@@ -81,11 +73,11 @@ public class VoidWarp extends JavaPlugin {
 						Player p = ((Player) sender).getPlayer();
 						p.sendMessage("VoidWarp already enabled.");
 					} else {
-						logMessage(ChatColor.RED + "Already enabled.");
+						logger.logMessage(ChatColor.RED + "Already enabled.");
 					}
 				} else {
 					EnablePlugin(true);
-					logMessage(ChatColor.GREEN + "Enabled via command.");
+					logger.logMessage(ChatColor.GREEN + "Enabled via command.");
 					if (sender instanceof Player) {
 						Player p = ((Player) sender).getPlayer();
 						p.sendMessage("VoidWarp has been enabled.");
@@ -95,7 +87,7 @@ public class VoidWarp extends JavaPlugin {
 			} else if (cmd.getName().equalsIgnoreCase("vwdisable")) {
 				if (getConfig().getBoolean("enable")) {
 					EnablePlugin(false);
-					logMessage(ChatColor.DARK_RED + "Disabled via command.");
+					logger.logMessage(ChatColor.DARK_RED + "Disabled via command.");
 					if (sender instanceof Player) {
 						Player p = ((Player) sender).getPlayer();
 						p.sendMessage("VoidWarp has been disabled.");
@@ -105,7 +97,7 @@ public class VoidWarp extends JavaPlugin {
 						Player p = ((Player) sender).getPlayer();
 						p.sendMessage("VoidWarp already disabled.");
 					} else {
-						logMessage(ChatColor.RED + "Already disabled.");
+						logger.logMessage(ChatColor.RED + "Already disabled.");
 					}
 				}
 				return true;
@@ -118,9 +110,9 @@ public class VoidWarp extends JavaPlugin {
 					String w = loc.getWorld().getName();
 					int x = loc.getBlockX();
 					int z = loc.getBlockZ();
-					logMessage("Warp has been set in the world '" + w + "at the co-ordinates: " + x + ", " + z);
+					logger.logMessage("Warp has been set in the world '" + w + "at the co-ordinates: " + x + ", " + z);
 				} else {
-					logMessage(ChatColor.RED + "/vwsetwarp cannot be run from the console");
+					logger.logMessage(ChatColor.RED + "/vwsetwarp cannot be run from the console");
 				}
 				return true;
 			}
@@ -158,7 +150,7 @@ public class VoidWarp extends JavaPlugin {
 			World w = p.getWorld();
 			loc = w.getSpawnLocation();
 			loc.setY(w.getHighestBlockYAt(loc) + getConfig().getInt("drop-height"));
-			logMessage(ChatColor.RED + "Failed to find a world named '" + wName + "'. Teleported player to " + w.getName() + " spawn. Please check config.yml.");
+			logger.logMessage(ChatColor.RED + "Failed to find a world named '" + wName + "'. Teleported player to " + w.getName() + " spawn. Please check config.yml.");
 		}
 		return loc;
 	}
