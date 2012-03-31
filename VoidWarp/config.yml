@@ -38,7 +38,7 @@ economy:
     #Enable to use vault to manage ecomonomy
     vault: true
 
-#Warp destination
+#Default warp destination
 destination:
 
     #World to teleport player to
@@ -52,6 +52,22 @@ destination:
     
     #x co-ordinate in specified world
     z: 0
-   
+
+#World spcific warp destinations
+worlds:
+  #Duplicate this node for each world you want to define
+  world_nether:
+    #World to teleport player to
+    world: world_nether
+    
+    #x co-ordinate in specified world
+    x: 0
+    
+    #No y co-ordinate as you always appear at the highest point.
+    #Wouldn't be like you fell from the sky if you didn't.
+    
+    #x co-ordinate in specified world
+    z: 0
+    
 #Enable the plugin 
 enable: true

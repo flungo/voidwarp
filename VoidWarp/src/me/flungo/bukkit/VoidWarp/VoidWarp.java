@@ -1,8 +1,5 @@
 package me.flungo.bukkit.VoidWarp;
 
-import me.flungo.bukkit.tools.Log;
-import me.flungo.bukkit.tools.Permissions;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
