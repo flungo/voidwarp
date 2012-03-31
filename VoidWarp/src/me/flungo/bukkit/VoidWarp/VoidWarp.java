@@ -101,13 +101,7 @@ public class VoidWarp extends JavaPlugin {
 			} else if (cmd.getName().equalsIgnoreCase("vwset")) {
 				if (sender instanceof Player) {
 					Player p = ((Player) sender).getPlayer(); 
-					Location loc = p.getLocation();
-					setWarpLocation(loc);
-					p.sendMessage("Warp point for VoidWarp set!");
-					String w = loc.getWorld().getName();
-					int x = loc.getBlockX();
-					int z = loc.getBlockZ();
-					logger.logMessage("Warp has been set in the world '" + w + "at the co-ordinates: " + x + ", " + z);
+					setWarpPlayer(p);
 				} else {
 					logger.logMessage(ChatColor.RED + "/vwsetwarp cannot be run from the console");
 				}
@@ -117,10 +111,64 @@ public class VoidWarp extends JavaPlugin {
 		return false;
 	}
 	
+	public void setWarpPlayer(Player p) {
+		Location loc = p.getLocation();
+		setWarpLocation(loc);
+		p.sendMessage("Default VoidWarp point set!");
+	}
+	
+	public void setWarpPlayer(Player p, World w) {
+		Location loc = p.getLocation();
+		setWarpLocation(loc);
+		p.sendMessage("VoidWarp point for world set!");
+	}
+	
+	public void setWarpCoord(int toX, int toZ, World toW, Player p) {
+		setWarpCoord(toX, toZ, toW);
+		p.sendMessage("Default warp point for VoidWarp set!");
+	}
+	
+	public void setWarpCoord(int toX, int toZ, World toW) {
+		Location loc = new Location(toW, toX, 64, toZ);
+		setWarpLocation(loc);
+	}
+	
+	public void setWarpCoord(int toX, int toZ, World toW, World fromW, Player p) {
+		setWarpCoord(toX, toZ, toW, fromW);
+		p.sendMessage("VoidWarp point from " + fromW.getName() + " VoidWarp set to co-ordinates: " + toX + ", " + toZ + " in " + toW.getName());
+	}
+	
+	public void setWarpCoord(int toX, int toZ, World toW, World fromW) {
+		Location loc = new Location(toW, toX, 64, toZ);
+		setWarpLocation(loc, fromW);
+	}
+	
+	public void setWarpLocation(Location loc, World w) {
+		String wName = w.getName();
+		String wName2 = loc.getWorld().getName();
+		int x = loc.getBlockX();
+		int z = loc.getBlockZ();
+		String prefix = "worlds." + wName + ".";
+		setWarpLocation(loc, prefix);
+		logger.logMessage("Warp has been set from the world '" + wName + "to the world " + wName2 + "at the co-ordinates: " + x + ", " + z);
+	}
+	
 	public void setWarpLocation(Location loc) {
-		getConfig().set("destination.world", loc.getWorld().getName());
-		getConfig().set("destination.x", loc.getBlockX());
-		getConfig().set("destination.z", loc.getBlockZ());
+		String wName = loc.getWorld().getName();
+		int x = loc.getBlockX();
+		int z = loc.getBlockZ();
+		String prefix = "destination.";
+		setWarpLocation(loc, prefix);
+		logger.logMessage("Deafult destination has been set in the world '" + wName + "at the co-ordinates: " + x + ", " + z);
+	}
+	
+	private void setWarpLocation(Location loc, String prefix) {
+		String w = loc.getWorld().getName();
+		int x = loc.getBlockX();
+		int z = loc.getBlockZ();
+		getConfig().set(prefix + "world", w);
+		getConfig().set(prefix + "x", x);
+		getConfig().set(prefix + "z", z);
 		saveConfig();
 	}
 	

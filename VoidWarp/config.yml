@@ -69,5 +69,8 @@ worlds:
     #x co-ordinate in specified world
     z: 0
     
+    #Enable/Disable this world specific warp
+    enabled: false
+    
 #Enable the plugin 
 enable: true
